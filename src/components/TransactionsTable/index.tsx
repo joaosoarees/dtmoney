@@ -22,10 +22,19 @@ export function TransactionsTable() {
             <tr key={transaction.id}>
               <td>{transaction.title}</td>
               <td className={transaction.type}>
-                {new Intl.NumberFormat('pt-BR', {
-                  style: 'currency',
-                  currency: 'BRL',
-                }).format(transaction.amount)}
+                {transaction.type === 'withdraw'
+                  ? new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                      currencySign: 'accounting',
+                      signDisplay: 'always',
+                    }).format(-Math.abs(transaction.amount))
+                  : new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                      currencySign: 'accounting',
+                      signDisplay: 'always',
+                    }).format(transaction.amount)}
               </td>
               <td>{transaction.category}</td>
               <td>
